@@ -1,3 +1,4 @@
+import string
 import nltk
 from nltk.corpus import wordnet
 from nltk import tokenize
@@ -38,7 +39,7 @@ def jaccard_weight(semantic_units, word_i, word_j):
 
 
 def text_to_semantic_units_by_sentence(raw_text,
-                                       pos_to_include=[None, wordnet.NOUN],
+                                       pos_to_include=[wordnet.NOUN, wordnet.VERB, wordnet.ADV, wordnet.ADJ],
                                        stop_words=stopwords.words('english'),
                                        lemmatizer=WordNetLemmatizer()):
     # TODO: add documentation.
@@ -86,11 +87,11 @@ def semantic_units_to_graph(semantic_units, n_nodes):
     return nx.from_dict_of_dicts(graph_dict)
 
 
-def draw(G, genre_name):
-    weights = [10 * G[u][v]['weight'] for u, v in G.edges()]
-    plt.figure(figsize=(15, 10))
+def visualize(G, title=None, nodes_factor=1, edges_factor=1, node_color='#abe2ed', edgecolors='#42c2db'):
+    weights = [edges_factor * G[u][v]['weight'] for u, v in G.edges()]
     d = dict(G.degree)
-    nx.draw_networkx(G, node_color='#abe2ed', edgecolors='#42c2db', width=weights,
-                     node_size=[v * 100 for v in d.values()])
-    plt.title(genre_name)
+    nx.draw_networkx(G, node_color=node_color, edgecolors=edgecolors, width=weights,
+                     node_size=[nodes_factor * v for v in d.values()])
+    if title is not None:
+        plt.title(title)
     plt.show()
