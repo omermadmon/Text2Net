@@ -15,6 +15,29 @@ import matplotlib.pyplot as plt
 # nltk.download('wordnet')
 
 
+def indicator_weight_function(word_i, word_j, semantic_units):
+    # TODO: add documentation.
+    for su in semantic_units:
+        if word_i in su and word_j in su:
+            return 1
+    return 0
+
+
+def jaccard_weight_function(word_i, word_j, semantic_units):
+    # TODO: add documentation.
+    counter = 0
+    for su in semantic_units:
+        if word_i in su and word_j in su:
+            counter += 1
+    return counter / len([su for su in semantic_units if word_i in su or word_j in su])
+
+
+weight_functions = {
+    'indicator': indicator_weight_function,
+    'jaccard': jaccard_weight_function
+}
+
+
 def tag_pos(nltk_tag):
     # TODO: add documentation.
     if nltk_tag.startswith('J'):
@@ -27,15 +50,6 @@ def tag_pos(nltk_tag):
         return wordnet.ADV
     else:
         return None
-
-
-def jaccard_weight(semantic_units, word_i, word_j):
-    # TODO: add documentation.
-    counter = 0
-    for su in semantic_units:
-        if word_i in su and word_j in su:
-            counter += 1
-    return counter / len([su for su in semantic_units if word_i in su or word_j in su])
 
 
 def text_to_semantic_units_by_sentence(raw_text,
@@ -69,16 +83,18 @@ def text_to_semantic_units_by_sentence(raw_text,
     return semantic_units
 
 
-def semantic_units_to_graph(semantic_units, n_nodes):
+def semantic_units_to_graph(semantic_units, n_nodes, weight_function='indicator'):
     # TODO: add documentation.
     # TODO: turn weight into a argument and extract from the default function flow.
+    if weight_function not in weight_functions.keys():
+        raise ValueError(f'weight_function must be one of: {weight_functions.keys()}')
     words = [word for SU in semantic_units for word in SU]
     words_set = set(words)
     top_n_words = sorted(list(words_set), key=lambda x: -words.count(x))[:n_nodes]
     graph_dict = {}
     for i, word_i in enumerate(top_n_words):
         for j, word_j in enumerate(top_n_words):
-            weight = jaccard_weight(semantic_units, word_i, word_j)
+            weight = weight_functions[weight_function](word_i, word_j, semantic_units)
             if i < j and weight > 0:
                 if word_i in graph_dict.keys() and word_j not in graph_dict[word_i].keys():
                     graph_dict[word_i][word_j] = {'weight': weight}
