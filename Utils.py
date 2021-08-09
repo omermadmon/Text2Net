@@ -1,12 +1,12 @@
 import string
 import nltk
+import networkx as nx
+import matplotlib.pyplot as plt
 from nltk.corpus import wordnet
 from nltk import tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from WeightFunctions import weight_functions
-import networkx as nx
-import matplotlib.pyplot as plt
 
 
 # TODO: figure out how to make sure nltk requirements are downloaded:
