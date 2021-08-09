@@ -2,6 +2,7 @@ from Utils import semantic_units_to_graph, text_to_semantic_units_by_sentence
 
 
 class Text2Net:
+    # TODO: add documentation.
 
     def __init__(self, text):
         self.text = text
