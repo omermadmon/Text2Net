@@ -61,7 +61,7 @@ def text_to_semantic_units_by_sentence(raw_text,
     return semantic_units
 
 
-def semantic_units_to_graph(semantic_units, n_nodes, weight_function='indicator'):
+def semantic_units_to_graph(semantic_units, n_nodes, weight_function):
     # TODO: add documentation.
     # TODO: turn weight into a argument and extract from the default function flow.
     if weight_function not in weight_functions.keys():

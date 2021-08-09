@@ -7,7 +7,7 @@ class Text2Net:
     def __init__(self, text):
         self.text = text
 
-    def transform(self, n_nodes, weight_function):
+    def transform(self, n_nodes, weight_function='indicator'):
         # TODO: add documentation.
         # TODO: add arguments to diffuse into inner functions (SU to graph, text to SU).
         semantic_units = text_to_semantic_units_by_sentence(self.text)
