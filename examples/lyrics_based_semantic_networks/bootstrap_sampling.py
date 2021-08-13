@@ -3,11 +3,6 @@ import random
 import pandas as pd
 import networkx as nx
 from Text2Net import Text2Net
-import matplotlib.pyplot as plt
-from itertools import product
-from scipy.stats import ttest_ind
-from itertools import combinations
-from collections import defaultdict
 
 if __name__ == '__main__':
     df_dict = dict()
