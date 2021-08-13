@@ -4,7 +4,14 @@ from Utils import tag_pos
 
 
 def text_to_semantic_units_by_sentence(text, pos_to_include, stop_words, lemmatizer=WordNetLemmatizer()):
-    # TODO: add documentation.
+    """
+    Parse the given text into semantic units by sentences in the text.
+    :param text: a string text to be broken into semantic units.
+    :param pos_to_include: part-of-speech tags to include.
+    :param stop_words: list of words to exclude from the output semantic units.
+    :param lemmatizer: a component for assigning base forms to tokens.
+    :return: A list of semantic units (as lists).
+    """
     semantic_units = []
     for sentence in tokenize.sent_tokenize(text):
         pos_tagged = pos_tag(word_tokenize(sentence))

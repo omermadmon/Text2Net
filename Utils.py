@@ -26,8 +26,14 @@ def tag_pos(nltk_tag):
 
 
 def semantic_units_to_graph(semantic_units, n_nodes, weight_function):
-    # TODO: add documentation.
-    # TODO: turn weight into a argument and extract from the default function flow.
+    """
+    Given a list of lists of token representing the semantic units of a text, create a nx.Graph
+    representation of the text.
+    :param semantic_units: A list of semantic units (as lists).
+    :param n_nodes: number of nodes (most frequent tokens) to be included in the output graph.
+    :param weight_function: weight function of the graph edges.
+    :return: A nx.Graph object.
+    """
     if weight_function not in weight_functions.keys():
         raise ValueError(f'weight_function must be one of: {weight_functions.keys()}')
     words = [word for SU in semantic_units for word in SU]
