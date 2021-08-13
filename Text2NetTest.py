@@ -25,6 +25,13 @@ class Text2NetTest(unittest.TestCase):
         self.assertEqual(G_jaccard_weights['hapoel']['haifa']['weight'], 0.5)
         self.assertRaises(ValueError, lambda: text2net.transform(n_nodes=3, weight_function='non_existing'))
 
+    def test_text2net_number_of_nodes(self):
+        # words count: alpha: 5, beta: 4, gamma: 3.
+        text = 'alpha beta beta alpha. gamma gamma beta. alpha gamma beta alpha. alpha.'
+        text2net = Text2Net(text)
+        G = text2net.transform(n_nodes=2)
+        self.assertSetEqual(set(G.nodes), {'alpha', 'beta'})
+
 
 if __name__ == '__main__':
     unittest.main()
