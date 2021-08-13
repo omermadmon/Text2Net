@@ -1,4 +1,5 @@
-from Utils import semantic_units_to_graph, text_to_semantic_units_by_sentence
+from Utils import semantic_units_to_graph
+from SemanticUnitsParsing import text_to_semantic_units_by_sentence
 
 
 class Text2Net:
