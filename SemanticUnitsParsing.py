@@ -3,9 +3,8 @@ from nltk.stem import WordNetLemmatizer
 from Utils import tag_pos
 
 
-def text_to_semantic_units_by_sentence(raw_text, pos_to_include, stop_words, lemmatizer=WordNetLemmatizer()):
+def text_to_semantic_units_by_sentence(text, pos_to_include, stop_words, lemmatizer=WordNetLemmatizer()):
     # TODO: add documentation.
-    text = raw_text.lower()
     semantic_units = []
     for sentence in tokenize.sent_tokenize(text):
         pos_tagged = pos_tag(word_tokenize(sentence))

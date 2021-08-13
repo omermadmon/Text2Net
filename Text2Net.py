@@ -12,7 +12,7 @@ class Text2Net:
     # TODO: add documentation.
 
     def __init__(self, text):
-        self.text = text
+        self.text = text.lower()
 
     def transform(self, n_nodes, weight_function='indicator',
                   pos_to_include=DEFAULT_POS_TO_INCLUDE,
