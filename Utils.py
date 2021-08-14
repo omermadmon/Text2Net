@@ -51,11 +51,16 @@ def semantic_units_to_graph(semantic_units, n_nodes, weight_function):
     return nx.from_dict_of_dicts(graph_dict)
 
 
-def visualize(G, title=None, nodes_factor=1, edges_factor=1, node_color='#abe2ed', edgecolors='#42c2db'):
+def visualize(G, title=None, nodes_factor=1, edges_factor=1, node_color='#abe2ed',
+              edgecolors='#42c2db', save_fig=None):
     weights = [edges_factor * G[u][v]['weight'] for u, v in G.edges()]
     d = dict(G.degree)
     nx.draw_networkx(G, node_color=node_color, edgecolors=edgecolors, width=weights,
                      node_size=[nodes_factor * v for v in d.values()])
     if title is not None:
         plt.title(title)
-    plt.show()
+    if save_fig:
+        plt.savefig(save_fig)
+        plt.close()
+    else:
+        plt.show()

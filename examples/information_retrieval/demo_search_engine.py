@@ -2,6 +2,7 @@ import os
 import networkx as nx
 from collections import namedtuple
 from Text2Net import Text2Net
+from Utils import visualize
 
 EXPANDED_QUERY = 'liverpool vs manchester united premier league match'.split(' ')
 
@@ -33,9 +34,11 @@ if __name__ == '__main__':
     # Create a PageRank-based inverted index:
     index = dict()
     for doc in documents:
-        doc_as_graph = Text2Net(doc.text).transform(n_nodes=100, weight_function='jaccard')
+        # Number of nodes set to 10 for visualization purposes
+        doc_as_graph = Text2Net(doc.text).transform(n_nodes=10, weight_function='jaccard')
         doc_page_rank = nx.pagerank(doc_as_graph, alpha=0.9)
         index[doc.id] = doc_page_rank
+        visualize(doc_as_graph, nodes_factor=5, save_fig=f'figures/{doc.id}')
 
     # Rank documents by probability of relevance:
     ranked_docs = [(doc_id, relevance_probability(doc_pagerank, EXPANDED_QUERY))
