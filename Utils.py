@@ -52,7 +52,7 @@ def semantic_units_to_graph(semantic_units, n_nodes, weight_function):
 
 
 def visualize(G, title=None, nodes_factor=1, edges_factor=1, node_color='#abe2ed',
-              edgecolors='#42c2db', save_fig=None):
+              edgecolors='#42c2db', figsize=(15, 10), save_fig=None):
     """
     Visualizing network.
     :param G: a network to visualize.
@@ -61,9 +61,11 @@ def visualize(G, title=None, nodes_factor=1, edges_factor=1, node_color='#abe2ed
     :param edges_factor: a factor to determine edge width in visualization.
     :param node_color: node color in visualization.
     :param edgecolors: edge color in visualization.
+    :param figsize: tuple representing figure size.
     :param save_fig: a path to save the figure. If not provided figure is shown via plt.show().
     :return: None.
     """
+    plt.figure(figsize=figsize)
     weights = [edges_factor * G[u][v]['weight'] for u, v in G.edges()]
     d = dict(G.degree)
     nx.draw_networkx(G, node_color=node_color, edgecolors=edgecolors, width=weights,
